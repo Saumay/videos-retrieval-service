@@ -1,38 +1,36 @@
 package com.fampay.assignment.videosretrievalserviceserver.service;
 
-import org.springframework.beans.factory.DisposableBean;
+import com.fampay.assignment.videosretrievalserviceserver.utils.ConversionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Map;
+
 @Component
 @Slf4j
-public class VideosRetrievalWorker implements DisposableBean, Runnable {
+public class VideosRetrievalWorker {
 
-    private Thread thread;
-    private volatile boolean runningCondition = true;
+    @Value("${youtube.data.api.frequency.period.millis}")
+    private long delay;
 
-    VideosRetrievalWorker() {
-        this.thread = new Thread(this);
-        this.thread.start();
-    }
+    @Autowired
+    private WebClientService webClientService;
 
-    @Override public void run() {
-        while (runningCondition) {
-            sleep(10000);
-            log.debug("Running");
-        }
-    }
+    @Autowired
+    private ConversionUtils conversionUtils;
 
-    @Override public void destroy() {
-        runningCondition = false;
-    }
+    public void callYoutubeDataApi() {
 
-    private void sleep(long milis) {
-        try {
-            Thread.sleep(milis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        new java.util.Timer().schedule(new java.util.TimerTask() {
+
+            @Override
+            public void run() {
+                Map<String, String> response = webClientService.sendGetRequest();
+                log.info("Response: {}", conversionUtils.pojoToString(response));
+            }
+        }, 0, delay);
     }
 }
