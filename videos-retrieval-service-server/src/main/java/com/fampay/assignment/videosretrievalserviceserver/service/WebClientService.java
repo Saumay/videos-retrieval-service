@@ -19,11 +19,19 @@ public class WebClientService {
     @Value("${google.api.key}")
     private String apiKey;
 
-    public Map<String, String> sendGetRequest() {
+    @Value("${google.api.url}")
+    private String apiUrl;
+
+    @Value("${youtube.search.api.endpoint}")
+    private String searchEndpoint;
+
+    public Map sendGetRequest() {
         return prepareWebClient().get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/youtube/v3/search")
+                        .path(searchEndpoint)
                         .queryParam("part", "snippet")
+                        .queryParam("type", "video")
+                        .queryParam("order", "date")
                         .queryParam("q", "cricket")
                         .queryParam("key", apiKey)
                         .build())
@@ -35,7 +43,7 @@ public class WebClientService {
 
     private WebClient prepareWebClient() {
         return WebClient.builder()
-                .baseUrl("https://www.googleapis.com")
+                .baseUrl(apiUrl)
                 .filter(logRequest())
                 .build();
     }
