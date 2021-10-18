@@ -15,9 +15,7 @@ public class VideoController {
 
     @GetMapping(value = "/fetch-latest-videos")
     public String index(Model model) {
-        // this attribute will be available in the view index.html as a thymeleaf variable
         model.addAttribute("eventName", videosRetrievalService.getAllEntities());
-        // this just means render index.html from static/ area
         return "index";
     }
 }
