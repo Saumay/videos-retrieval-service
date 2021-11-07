@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Video Retrival Service - Dashboard</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Video Retrival Service - Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+            <table id="posts" class="table table-bordered table-responsive-sm">
+                <thead>
+                <tr>
+                    <th>Thumbnail Url</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Channel</th>
+                    <th>Published At</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="video : ${videos.page}">
+                    <td>
+                        <img th:src="${video.thumbnail.url}" th:required="${video.thumbnail.url}"
+                             th:height="${video.thumbnail.height}" th:width="${video.thumbnail.width}"/>
+                    </td>
+                    <td th:text="${video.title}">title</td>
+                    <td th:text="${video.description}">description</td>
+                    <td th:text="${video.channel}">channel</td>
+                    <td th:text="${video.publishedAt}">published at</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation" class="paging">
+                <ul class="pagination" th:if="${videos.page.totalPages > 1}">
+                    <li class="page-item" th:classappend="${!videos.paging.isPrevEnabled()? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{'/fetch-videos-page?pageNumber=' + ${videos.paging.pageNumber - 1}}"
+                           tabindex="-1">Previous</a>
+                    </li>
+                    <th:block th:each="icon : ${videos.paging.getIcons()}">
+                        <li class="page-item" th:classappend="${icon.index == videos.paging.pageNumber? 'active' : ''}"
+                            th:if="${icon.pageIconType.name() == 'PAGE'}">
+                            <a class="page-link" th:href="@{'/fetch-videos-page?pageNumber=' + ${icon.index}}"
+                               th:text="${icon.index}"></a>
+                        </li>
+                        <li class="page-item disabled" th:if="${icon.pageIconType.name() == 'DOTS'}">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+                    </th:block>
+                    <li class="page-item" th:classappend="${!videos.paging.isNextEnabled()? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{'/fetch-videos-page?pageNumber=' + ${videos.paging.pageNumber + 1}}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
