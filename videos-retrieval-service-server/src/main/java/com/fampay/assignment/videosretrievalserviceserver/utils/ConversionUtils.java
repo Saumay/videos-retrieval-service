@@ -23,6 +23,17 @@ public class ConversionUtils {
         return null;
     }
 
+    public <T> T convertToPojo(Object object, Class<T> classOfT) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.convertValue(object, objectMapper.getTypeFactory()
+                    .constructType(classOfT));
+        } catch (Exception e) {
+            log.error("Something went wrong while converting map to Pojo : ", e);
+        }
+        return null;
+    }
+
     public <T> T stringToPojo(String str, Class<T> tClass) {
         ObjectMapper mapper = new ObjectMapper();
         try {
