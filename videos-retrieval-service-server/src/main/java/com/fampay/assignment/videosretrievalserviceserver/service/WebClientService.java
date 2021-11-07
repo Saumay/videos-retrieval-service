@@ -1,6 +1,7 @@
 package com.fampay.assignment.videosretrievalserviceserver.service;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -25,7 +26,7 @@ public class WebClientService {
     @Value("${youtube.search.api.endpoint}")
     private String searchEndpoint;
 
-    public Map sendGetRequest() {
+    public Map<?,?> sendGetRequest(Optional<String> pageToken) {
         return prepareWebClient().get()
                 .uri(uriBuilder -> uriBuilder
                         .path(searchEndpoint)
@@ -34,6 +35,9 @@ public class WebClientService {
                         .queryParam("order", "date")
                         .queryParam("q", "cricket")
                         .queryParam("key", apiKey)
+                        .queryParam("maxResults", 20)
+//                        .queryParamIfPresent("publishedAfter", publishedAfterDateStr)
+                        .queryParamIfPresent("pageToken", pageToken)
                         .build())
                 .headers(httpHeaders -> httpHeaders.addAll(new HttpHeaders()))
                 .retrieve()
