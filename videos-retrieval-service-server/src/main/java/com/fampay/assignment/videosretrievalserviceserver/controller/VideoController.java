@@ -18,12 +18,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class VideoController {
 
+    private static final String DEFAULT_PAGE_SIZE = "5";
+
     @Autowired
     private VideosRetrievalService videosRetrievalService;
 
     @GetMapping(value = "/fetch-videos-page")
     public String index(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
-            @RequestParam(value = "size", required = false, defaultValue = "5") int size, Model model) {
+            @RequestParam(value = "size", required = false, defaultValue = DEFAULT_PAGE_SIZE) int size, Model model) {
         Paged<VideoEntity> page = videosRetrievalService.getPage(pageNumber, size);
         model.addAttribute("videos", page);
         log.info("Returning contents for pageNumber: {} with size: {}", page.getPaging().getPageNumber(), page.getPaging().getPageSize());

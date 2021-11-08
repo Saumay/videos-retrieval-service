@@ -4,9 +4,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.fampay.assignment.videosretrievalserviceserver.config.YoutubeApiConfiguration;
 import com.fampay.assignment.videosretrievalserviceserver.db.Thumbnail;
 import com.fampay.assignment.videosretrievalserviceserver.db.VideoEntity;
 import com.fampay.assignment.videosretrievalserviceserver.db.VideoRepository;
@@ -19,8 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class VideosRetrievalWorker {
 
-    @Value("${youtube.search.api.frequency.period.millis}")
-    private long delay;
+    @Autowired
+    private YoutubeApiConfiguration youtubeApiConfiguration;
 
     @Autowired
     private VideoRepository videoRepository;
@@ -43,7 +43,7 @@ public class VideosRetrievalWorker {
             public void run() {
                 getAndSaveApiResults(null);
             }
-        }, 0, delay);
+        }, 0, youtubeApiConfiguration.getFrequencyMillis());
     }
 
     public void getNextApiPageAndSaveApiResults() {

@@ -3,12 +3,14 @@ package com.fampay.assignment.videosretrievalserviceserver.service;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.reactive.function.client.ClientRequest;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import com.fampay.assignment.videosretrievalserviceserver.config.YoutubeApiConfiguration;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -17,25 +19,19 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class WebClientService {
 
-    @Value("${google.api.key}")
-    private String apiKey;
-
-    @Value("${google.api.url}")
-    private String apiUrl;
-
-    @Value("${youtube.search.api.endpoint}")
-    private String searchEndpoint;
+    @Autowired
+    private YoutubeApiConfiguration youtubeApiConfiguration;
 
     public Map<?,?> sendGetRequest(Optional<String> pageToken) {
         return prepareWebClient().get()
                 .uri(uriBuilder -> uriBuilder
-                        .path(searchEndpoint)
+                        .path(youtubeApiConfiguration.getEndpoint())
                         .queryParam("part", "snippet")
                         .queryParam("type", "video")
                         .queryParam("order", "date")
                         .queryParam("q", "cricket")
-                        .queryParam("key", apiKey)
-                        .queryParam("maxResults", 20)
+                        .queryParam("key", youtubeApiConfiguration.getKey())
+                        .queryParam("maxResults", youtubeApiConfiguration.getPageSize())
 //                        .queryParamIfPresent("publishedAfter", publishedAfterDateStr)
                         .queryParamIfPresent("pageToken", pageToken)
                         .build())
@@ -47,7 +43,7 @@ public class WebClientService {
 
     private WebClient prepareWebClient() {
         return WebClient.builder()
-                .baseUrl(apiUrl)
+                .baseUrl(youtubeApiConfiguration.getUrl())
                 .filter(logRequest())
                 .build();
     }
