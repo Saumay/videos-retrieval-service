@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.fampay.assignment.videosretrievalserviceserver.db.VideoEntity;
@@ -33,7 +34,7 @@ public class VideosRetrievalService {
     }
 
     public Paged<VideoEntity> getPage(int pageNumber, int size, String searchQuery) {
-        PageRequest request = PageRequest.of(pageNumber - 1, size);
+        PageRequest request = PageRequest.of(pageNumber - 1, size, Sort.by(Sort.Direction.DESC, "publishedAt"));
         Page<VideoEntity> videoPage = getVideoPage(request, searchQuery);
         if(pageNumber > videoPage.getTotalPages()) {
             videosRetrievalWorker.getNextApiPageAndSaveApiResults();

@@ -13,13 +13,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @TypeDef(name = "json", typeClass = JsonType.class)
-@Table(name = "video_details")
+@Table(name = "video_details", indexes = {@Index(name = "IDX_search", columnList = "title, description, channel")})
 public class VideoEntity {
 
     @Id

@@ -6,5 +6,10 @@ CREATE TABLE video_details (
       description VARCHAR(250) NOT NULL,
       channel VARCHAR(250) NOT NULL,
       thumbnail json DEFAULT NULL,
-      published_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
-);
+      published_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+
+      PRIMARY KEY (id),
+      INDEX IDX_search (title, description, channel)
+--       FULLTEXT KEY (title, description)
+)
+-- ENGINE=MyISAM DEFAULT CHARSET=utf8;
