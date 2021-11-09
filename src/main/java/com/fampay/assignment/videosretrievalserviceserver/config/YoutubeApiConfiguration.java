@@ -17,4 +17,5 @@ public class YoutubeApiConfiguration {
     private String endpoint;
     private Long frequencyMillis;
     private Integer pageSize;
+    private String searchQuery;
 }
