@@ -23,7 +23,7 @@ public class VideoController {
     @Autowired
     private VideosRetrievalService videosRetrievalService;
 
-    @GetMapping(value = "/fetch-videos-page")
+    @GetMapping(value = "/fetch-videos")
     public String fetchLatestVideos(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
             @RequestParam(value = "size", required = false, defaultValue = DEFAULT_PAGE_SIZE) int size,
             @RequestParam(value = "searchQuery", required = false, defaultValue = "") String searchQuery, Model model) {

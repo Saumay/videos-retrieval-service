@@ -26,7 +26,7 @@
 
     <div class="row">
         <div class="col-lg-10 mt-5 mb-5">
-            <form th:action="@{'/fetch-videos-page?searchQuery=' + ${searchModel.searchQuery}}" th:object="${searchModel}" method="get">
+            <form th:action="@{'/fetch-videos?searchQuery=' + ${searchModel.searchQuery}}" th:object="${searchModel}" method="get">
                 <div>
                     <label>Enter search string here:</label>
                     <input type="text" th:field="*{searchQuery}" placeholder="Search here" />
@@ -62,13 +62,13 @@
             <nav aria-label="Page navigation" class="paging">
                 <ul class="pagination" th:if="${videos.page.totalPages > 1}">
                     <li class="page-item" th:classappend="${!videos.paging.isPrevEnabled()? 'disabled' : ''}">
-                        <a class="page-link" th:href="@{'/fetch-videos-page?pageNumber=' + ${videos.paging.pageNumber - 1} + '&searchQuery=' + ${searchModel.searchQuery}}"
+                        <a class="page-link" th:href="@{'/fetch-videos?pageNumber=' + ${videos.paging.pageNumber - 1} + '&searchQuery=' + ${searchModel.searchQuery}}"
                            tabindex="-1">Previous</a>
                     </li>
                     <th:block th:each="icon : ${videos.paging.getIcons()}">
                         <li class="page-item" th:classappend="${icon.index == videos.paging.pageNumber? 'active' : ''}"
                             th:if="${icon.pageIconType.name() == 'PAGE'}">
-                            <a class="page-link" th:href="@{'/fetch-videos-page?pageNumber=' + ${icon.index} + '&searchQuery=' + ${searchModel.searchQuery}}"
+                            <a class="page-link" th:href="@{'/fetch-videos?pageNumber=' + ${icon.index} + '&searchQuery=' + ${searchModel.searchQuery}}"
                                th:text="${icon.index}"></a>
                         </li>
                         <li class="page-item disabled" th:if="${icon.pageIconType.name() == 'DOTS'}">
@@ -76,7 +76,7 @@
                         </li>
                     </th:block>
                     <li class="page-item" th:classappend="${!videos.paging.isNextEnabled()? 'disabled' : ''}">
-                        <a class="page-link" th:href="@{'/fetch-videos-page?pageNumber=' + ${videos.paging.pageNumber + 1} + '&searchQuery=' + ${searchModel.searchQuery}}">Next</a>
+                        <a class="page-link" th:href="@{'/fetch-videos?pageNumber=' + ${videos.paging.pageNumber + 1} + '&searchQuery=' + ${searchModel.searchQuery}}">Next</a>
                     </li>
                 </ul>
             </nav>
