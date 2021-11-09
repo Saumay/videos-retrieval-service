@@ -32,7 +32,6 @@ public class WebClientService {
                         .queryParam("q", youtubeApiConfiguration.getSearchQuery())
                         .queryParam("key", youtubeApiConfiguration.getKey())
                         .queryParam("maxResults", youtubeApiConfiguration.getPageSize())
-//                        .queryParamIfPresent("publishedAfter", publishedAfterDateStr)
                         .queryParamIfPresent("pageToken", pageToken)
                         .build())
                 .headers(httpHeaders -> httpHeaders.addAll(new HttpHeaders()))
