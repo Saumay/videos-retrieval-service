@@ -9,7 +9,7 @@ target/
 .mvn
 */src/gen/java
 
-#lombok
+# lombok
 .factorypath
 
 # app

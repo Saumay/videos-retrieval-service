@@ -24,7 +24,7 @@ public class VideoController {
     private VideosRetrievalService videosRetrievalService;
 
     @GetMapping(value = "/fetch-videos-page")
-    public String index(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+    public String fetchLatestVideos(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
             @RequestParam(value = "size", required = false, defaultValue = DEFAULT_PAGE_SIZE) int size,
             @RequestParam(value = "searchQuery", required = false, defaultValue = "") String searchQuery, Model model) {
         Paged<VideoEntity> page;
