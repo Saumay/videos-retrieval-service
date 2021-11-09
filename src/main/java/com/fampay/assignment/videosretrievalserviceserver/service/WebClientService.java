@@ -29,7 +29,7 @@ public class WebClientService {
                         .queryParam("part", "snippet")
                         .queryParam("type", "video")
                         .queryParam("order", "date")
-                        .queryParam("q", "cricket")
+                        .queryParam("q", youtubeApiConfiguration.getSearchQuery())
                         .queryParam("key", youtubeApiConfiguration.getKey())
                         .queryParam("maxResults", youtubeApiConfiguration.getPageSize())
 //                        .queryParamIfPresent("publishedAfter", publishedAfterDateStr)
