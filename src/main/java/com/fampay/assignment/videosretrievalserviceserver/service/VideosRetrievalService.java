@@ -29,13 +29,23 @@ public class VideosRetrievalService {
     }
 
     public Paged<VideoEntity> getPage(int pageNumber, int size) {
+        return getPage(pageNumber, size, null);
+    }
+
+    public Paged<VideoEntity> getPage(int pageNumber, int size, String searchQuery) {
         PageRequest request = PageRequest.of(pageNumber - 1, size);
-        Page<VideoEntity> postPage = videoRepository.findAll(request);
-        if(pageNumber > postPage.getTotalPages()) {
+        Page<VideoEntity> videoPage = getVideoPage(request, searchQuery);
+        if(pageNumber > videoPage.getTotalPages()) {
             videosRetrievalWorker.getNextApiPageAndSaveApiResults();
-            postPage = videoRepository.findAll(request);
+            videoPage = getVideoPage(request, searchQuery);
         }
-        return new Paged<>(postPage, Paging.of(postPage.getTotalPages(), pageNumber, size));
+        return new Paged<>(videoPage, Paging.of(videoPage.getTotalPages(), pageNumber, size));
+    }
+
+    private Page<VideoEntity> getVideoPage(PageRequest request, String searchQuery) {
+        return searchQuery == null
+                ? videoRepository.findAll(request)
+                : videoRepository.findAllBySearchQuery(searchQuery.toUpperCase(), request);
     }
 
     public List<VideoEntity> getAllEntities() {
