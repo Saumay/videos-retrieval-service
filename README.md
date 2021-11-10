@@ -64,7 +64,7 @@ For fetching older videos by calling Youtube API, **go to the last page and clic
 ```[main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''```
 
 ### Open app in browser:
-```http://localhost:8081/fetch-videos-page```
+```http://localhost:8081/fetch-videos```
 
 ![image](https://user-images.githubusercontent.com/28265617/140965314-e8d0e2fa-fa29-4caa-b635-ed6668d46a0a.png)
 
