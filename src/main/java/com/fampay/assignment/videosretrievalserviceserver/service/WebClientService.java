@@ -1,6 +1,8 @@
 package com.fampay.assignment.videosretrievalserviceserver.service;
 
+import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,18 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class WebClientService {
 
+    private static final String GOOGLE_API_KEY_ENV_VARIABLE = "GOOGLE_API_KEY";
+
     @Autowired
     private YoutubeApiConfiguration youtubeApiConfiguration;
 
-    public Map<?,?> sendGetRequest(Optional<String> pageToken) {
+    public Map<?,?> sendGetRequest(Optional<String> pageToken, Optional<Date> publishedAfterDate) {
+        String googleApiKey = Objects.isNull(System.getProperty(GOOGLE_API_KEY_ENV_VARIABLE))
+                ? System.getProperty(GOOGLE_API_KEY_ENV_VARIABLE)
+                : System.getenv(GOOGLE_API_KEY_ENV_VARIABLE);
+        log.info("Env Variables: {}", System.getenv());
+        log.info("System Variables: {}", System.getProperties());
+
         return prepareWebClient().get()
                 .uri(uriBuilder -> uriBuilder
                         .path(youtubeApiConfiguration.getEndpoint())
@@ -30,8 +40,9 @@ public class WebClientService {
                         .queryParam("type", "video")
                         .queryParam("order", "date")
                         .queryParam("q", youtubeApiConfiguration.getSearchQuery())
-                        .queryParam("key", youtubeApiConfiguration.getKey())
+                        .queryParam("key", googleApiKey)
                         .queryParam("maxResults", youtubeApiConfiguration.getPageSize())
+                        .queryParamIfPresent("publishedAfter", publishedAfterDate)
                         .queryParamIfPresent("pageToken", pageToken)
                         .build())
                 .headers(httpHeaders -> httpHeaders.addAll(new HttpHeaders()))

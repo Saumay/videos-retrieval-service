@@ -12,7 +12,6 @@ import lombok.Setter;
 @ConfigurationProperties("youtube.search.api")
 public class YoutubeApiConfiguration {
 
-    private String key;
     private String url;
     private String endpoint;
     private Long frequencyMillis;
