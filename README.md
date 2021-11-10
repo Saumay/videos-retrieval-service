@@ -3,7 +3,7 @@ An API to fetch latest videos sorted in reverse chronological order of their pub
 
 Service is deployed on Heroku.
 
-URL: https://videos-retrieval-service.herokuapp.com/fetch-videos-page
+URL: https://videos-retrieval-service.herokuapp.com/fetch-videos
 
 ## Features
 - Service is calling YouTube API continuously in background (async) with **interval (30 minutes)** for fetching the latest videos for the **search query(Football)** 
@@ -24,8 +24,8 @@ For fetching older videos by calling Youtube API, **go to the last page and clic
 
 ## Specifications
 ### API Specifications:
-- **/fetch-videos-page**:<br>
-```/fetch-videos-page?pageNumber=28&size=5&searchQuery=null```
+- **/fetch-videos**:<br>
+```/fetch-videos?pageNumber=28&size=5&searchQuery=null```
 
   **Query params:** 
 ```
