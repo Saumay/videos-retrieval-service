@@ -25,4 +25,8 @@ public class DateTimeUtils {
         }
         return Optional.empty();
     }
+
+    public Date convertMillisToDate(long millis) {
+        return new Date(millis);
+    }
 }

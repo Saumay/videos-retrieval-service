@@ -1,8 +1,6 @@
 package com.fampay.assignment.videosretrievalserviceserver.service;
 
-import java.util.Date;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +25,7 @@ public class WebClientService {
     private YoutubeApiConfiguration youtubeApiConfiguration;
 
     public Map<?,?> sendGetRequest(Optional<String> pageToken, Optional<String> publishedAfterDate) {
-//        String googleApiKey = Objects.isNull(System.getProperty(GOOGLE_API_KEY_ENV_VARIABLE))
-//                ? System.getProperty(GOOGLE_API_KEY_ENV_VARIABLE)
-//                : System.getenv(GOOGLE_API_KEY_ENV_VARIABLE);
-//        if(googleApiKey == null)
-        String googleApiKey = "AIzaSyDAcndvDzjLwR-Lr7PAIpZQyK5pm6obCHs";
-        log.info("Env Variables: {}", System.getenv());
-        log.info("System Variables: {}", System.getProperties());
+        String googleApiKey = System.getenv(GOOGLE_API_KEY_ENV_VARIABLE);
 
         return prepareWebClient().get()
                 .uri(uriBuilder -> uriBuilder

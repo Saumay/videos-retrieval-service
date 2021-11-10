@@ -43,7 +43,7 @@ public class VideosRetrievalWorker {
             public void run() {
                 Date prevLatestPublishedDate = videoRepository.getLatestPublishedDate();
                 if(Objects.isNull(prevLatestPublishedDate)) {
-                    prevLatestPublishedDate = new Date();
+                    prevLatestPublishedDate = dateTimeUtils.convertMillisToDate(System.currentTimeMillis() - 30000);
                 }
                 getAndSaveApiResults(null, prevLatestPublishedDate);
             }
