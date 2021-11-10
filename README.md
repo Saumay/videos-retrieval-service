@@ -24,7 +24,7 @@ For fetching older videos by calling Youtube API, **go to the last page and clic
 
 ## Specifications
 ### API Specifications:
-- **/fetch-videos**:<br>
+- **GET /fetch-videos**:<br>
 ```/fetch-videos?pageNumber=28&size=5&searchQuery=null```
 
   **Query params:** 
