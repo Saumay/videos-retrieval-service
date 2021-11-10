@@ -26,10 +26,12 @@ public class WebClientService {
     @Autowired
     private YoutubeApiConfiguration youtubeApiConfiguration;
 
-    public Map<?,?> sendGetRequest(Optional<String> pageToken, Optional<Date> publishedAfterDate) {
-        String googleApiKey = Objects.isNull(System.getProperty(GOOGLE_API_KEY_ENV_VARIABLE))
-                ? System.getProperty(GOOGLE_API_KEY_ENV_VARIABLE)
-                : System.getenv(GOOGLE_API_KEY_ENV_VARIABLE);
+    public Map<?,?> sendGetRequest(Optional<String> pageToken, Optional<String> publishedAfterDate) {
+//        String googleApiKey = Objects.isNull(System.getProperty(GOOGLE_API_KEY_ENV_VARIABLE))
+//                ? System.getProperty(GOOGLE_API_KEY_ENV_VARIABLE)
+//                : System.getenv(GOOGLE_API_KEY_ENV_VARIABLE);
+//        if(googleApiKey == null)
+        String googleApiKey = "AIzaSyDAcndvDzjLwR-Lr7PAIpZQyK5pm6obCHs";
         log.info("Env Variables: {}", System.getenv());
         log.info("System Variables: {}", System.getProperties());
 
