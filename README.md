@@ -46,6 +46,13 @@ For fetching older videos by calling Youtube API, **go to the last page and clic
 ### Pre-requisites:
 - Java 8
 - Maven 3
+- Set environment variable with Google API Key:
+  ```export GOOGLE_API_KEY = "<API_KEY>"```
+  
+  OR,
+  
+  Add environment variable in ```~/.bash_profile```.
+  
 
 ### Running application as standalone spring-boot application:
 - Compile the project using Maven<br>
