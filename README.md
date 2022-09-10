@@ -1,5 +1,5 @@
 # videos-retrieval-service
-An API to fetch latest videos sorted in reverse chronological order of their publishing date-time from YouTube in a paginated dashboard.
+An API to fetch latest videos sorted in reverse chronological order of their published date-time from YouTube in a paginated dashboard.
 
 Service is deployed on Heroku.
 
