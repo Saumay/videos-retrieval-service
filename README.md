@@ -16,7 +16,6 @@ URL: https://videos-retrieval-service.herokuapp.com/fetch-videos
 
 - A GET API returning the stored video data in a paginated response sorted in descending order of published datetime, and for searching the stored videos with words present in **title**, **channel** and **description** (case insensitive). 
 - Application is dockerized and scalable.
-- Code and database are highly optimised.
 
 
 *Note: Details of only 20 videos are fetched initially. 
